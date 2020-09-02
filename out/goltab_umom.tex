@@ -1,0 +1,36 @@
+
+\begin{table}
+\caption{Education and the Support for Foreigner's Local Suffrage (Male, UTAS): Variables with Partial Proportional Odds Assumption Relaxed.}
+\begin{center}
+\begin{tabular}{l c c c c }
+\toprule
+ & 1|2 & 2|3 & 3|4 & 4|5 \\
+\midrule
+(Intercept)            & $2.308^{***}$     & $1.760^{***}$     & $0.079$           & $-1.257^{***}$ \\
+                       & $(0.251)$         & $(0.218)$         & $(0.195)$         & $(0.241)$      \\
+University Education   & $0.168$           & $0.032$           & $0.092$           & $0.145$        \\
+                       & $(0.262)$         & $(0.220)$         & $(0.193)$         & $(0.251)$      \\
+Middle Aged (40-50s)   & $0.600^{*}$       & $0.412^{\dagger}$ & $0.301^{\dagger}$ & $0.112$        \\
+                       & $(0.256)$         & $(0.212)$         & $(0.179)$         & $(0.234)$      \\
+Elder ($>$=60s)        & $0.433^{\dagger}$ & $0.217$           & $0.023$           & $-0.004$       \\
+                       & $(0.231)$         & $(0.196)$         & $(0.172)$         & $(0.226)$      \\
+University*Middle Aged & $-0.454$          & $-0.352$          & $0.048$           & $-0.131$       \\
+                       & $(0.345)$         & $(0.284)$         & $(0.246)$         & $(0.320)$      \\
+University*Elder       & $-0.312$          & $-0.275$          & $-0.034$          & $-0.279$       \\
+                       & $(0.331)$         & $(0.275)$         & $(0.248)$         & $(0.335)$      \\
+Knowledge              & $-1.210^{***}$    & $-1.048^{***}$    & $-0.260$          & $-0.236$       \\
+                       & $(0.272)$         & $(0.220)$         & $(0.195)$         & $(0.265)$      \\
+Economic Evaluation    & $-0.175$          & $-0.510^{*}$      & $-0.632^{**}$     & $-0.681^{*}$   \\
+                       & $(0.288)$         & $(0.236)$         & $(0.219)$         & $(0.296)$      \\
+\midrule
+AIC                    & 6468.878          &                   &                   &                \\
+BIC                    & 6666.899          &                   &                   &                \\
+Log Likelihood         & -3199.439         &                   &                   &                \\
+Num.\ obs.             & 2117              &                   &                   &                \\
+\bottomrule
+\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$, $^{\dagger}p<0.1$. Year fixed effects omitted from the output.}} \\ \multicolumn{5}{l}{\scriptsize{Response ranges from 1 = disagree to 5 = agree for supporting permanent resident's local suffrage.}} \\ \multicolumn{5}{l}{\scriptsize{The model is estimated by partial proportional odds model (logit) through \texttt{vglm} function in \texttt{VGAM} package of \texttt{R}.}}
+\end{tabular}
+\label{goltab_umom}
+\end{center}
+\end{table}
+

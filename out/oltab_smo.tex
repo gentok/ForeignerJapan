@@ -1,0 +1,32 @@
+
+\begin{table}
+\caption{Education and the Support for Foreigner's Local Suffrage (Ordered Logit, SIFCCT)}
+\begin{center}
+\begin{tabular}{l c c }
+\toprule
+ & Female & Male \\
+\midrule
+University Education   & $0.179 \; (0.063)^{**}$       & $-0.011 \; (0.087)$          \\
+Middle Aged (40-50s)   & $0.100 \; (0.069)$            & $0.207 \; (0.066)^{**}$      \\
+Elder ($>$=60s)        & $-0.020 \; (0.088)$           & $0.379 \; (0.063)^{***}$     \\
+University*Middle Aged & $-0.163 \; (0.090)^{\dagger}$ & $0.075 \; (0.077)$           \\
+University*Elder       & $0.246 \; (0.091)^{**}$       & $0.079 \; (0.084)$           \\
+Knowledge              & $-0.687 \; (0.060)^{***}$     & $-0.636 \; (0.060)^{***}$    \\
+Political Interest     & $-0.302 \; (0.097)^{**}$      & $-0.432 \; (0.079)^{***}$    \\
+Employed               & $0.088 \; (0.045)^{\dagger}$  & $0.092 \; (0.055)^{\dagger}$ \\
+Economic Evaluation    & $0.420 \; (0.107)^{***}$      & $0.232 \; (0.071)^{**}$      \\
+Income                 & $0.010 \; (0.061)$            & $0.124 \; (0.063)^{*}$       \\
+Length of Residence    & $-0.093 \; (0.069)$           & $-0.237 \; (0.058)^{***}$    \\
+\midrule
+AIC                    & 29599.813                     & 48205.913                    \\
+BIC                    & 29851.947                     & 48475.431                    \\
+Log Likelihood         & -14764.907                    & -24067.956                   \\
+Deviance               & 29529.813                     & 48135.913                    \\
+Num. obs.              & 9935                          & 16326                        \\
+\bottomrule
+\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$, $^{\dagger}p<0.1$. Wave fixed effects omitted from the output.}} \\ \multicolumn{3}{l}{\scriptsize{Response ranges from 1 = disagree to 5 = agree for supporting permanent resident's local suffrage.}} \\ \multicolumn{3}{l}{\scriptsize{The model is estimated by ordered logit through \texttt{polr} function in \texttt{MASS}.}}
+\end{tabular}
+\label{oltab_smo}
+\end{center}
+\end{table}
+

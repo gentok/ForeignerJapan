@@ -1,0 +1,40 @@
+
+\begin{table}
+\caption{Education and the Support for Foreigner's Local Suffrage (Male, SIFCCT): Variables with Partial Proportional Odds Assumption Relaxed.}
+\begin{center}
+\begin{tabular}{l c c c c }
+\toprule
+ & 1|2 & 2|3 & 3|4 & 4|5 \\
+\midrule
+(Intercept)            & $1.551^{***}$  & $0.855^{***}$  & $-1.329^{***}$ & $-2.859^{***}$     \\
+                       & $(0.120)$      & $(0.116)$      & $(0.125)$      & $(0.172)$          \\
+University Education   & $-0.013$       & $-0.042$       & $0.044$        & $-0.113$           \\
+                       & $(0.081)$      & $(0.078)$      & $(0.090)$      & $(0.132)$          \\
+Middle Aged (40-50s)   & $0.292^{**}$   & $0.218^{*}$    & $0.199^{*}$    & $-0.243$           \\
+                       & $(0.092)$      & $(0.089)$      & $(0.100)$      & $(0.154)$          \\
+Elder ($>$=60s)        & $0.504^{***}$  & $0.338^{***}$  & $0.354^{***}$  & $-0.206$           \\
+                       & $(0.093)$      & $(0.090)$      & $(0.101)$      & $(0.152)$          \\
+University*Middle Aged & $0.047$        & $0.077$        & $0.034$        & $0.227$            \\
+                       & $(0.102)$      & $(0.098)$      & $(0.111)$      & $(0.169)$          \\
+University*Elder       & $0.081$        & $0.108$        & $0.025$        & $0.196$            \\
+                       & $(0.103)$      & $(0.100)$      & $(0.112)$      & $(0.170)$          \\
+Knowledge              & $-1.019^{***}$ & $-0.906^{***}$ & $-0.187^{**}$  & $0.032$            \\
+                       & $(0.067)$      & $(0.063)$      & $(0.068)$      & $(0.108)$          \\
+Political Interest     & $-1.038^{***}$ & $-0.734^{***}$ & $0.194^{**}$   & $0.929^{***}$      \\
+                       & $(0.072)$      & $(0.068)$      & $(0.074)$      & $(0.121)$          \\
+Economic Evaluation    & $0.317^{***}$  & $0.294^{***}$  & $0.215^{**}$   & $-0.199^{\dagger}$ \\
+                       & $(0.067)$      & $(0.065)$      & $(0.071)$      & $(0.107)$          \\
+Length of Residence    & $-0.279^{***}$ & $-0.220^{***}$ & $-0.208^{***}$ & $-0.313^{***}$     \\
+                       & $(0.051)$      & $(0.050)$      & $(0.055)$      & $(0.087)$          \\
+\midrule
+AIC                    & 47458.983      &                &                &                    \\
+BIC                    & 47936.415      &                &                &                    \\
+Log Likelihood         & -23667.492     &                &                &                    \\
+Num.\ obs.             & 16326          &                &                &                    \\
+\bottomrule
+\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$, $^{\dagger}p<0.1$. Wave fixed effects omitted from the output.}} \\ \multicolumn{5}{l}{\scriptsize{Response ranges from 1 = disagree to 5 = agree for supporting permanent resident's local suffrage.}} \\ \multicolumn{5}{l}{\scriptsize{The model is estimated by partial proportional odds model (logit) through \texttt{vglm} function in \texttt{VGAM} package of \texttt{R}.}}
+\end{tabular}
+\label{goltab_smom}
+\end{center}
+\end{table}
+
