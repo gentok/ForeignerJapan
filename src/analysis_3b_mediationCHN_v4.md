@@ -27,6 +27,21 @@ setwd(projdir)
 ## Load Image of Main Analysis
 load(paste0(projdir,"/out/analysis_main_v4.RData"))
 
+## Set Working Directory (Automatically) ##
+require(rstudioapi); require(rprojroot)
+if (rstudioapi::isAvailable()==TRUE) {
+  setwd(dirname(rstudioapi::getActiveDocumentContext()$path)); 
+} 
+projdir <- find_root(has_file("thisishome.txt"))
+cat(paste("Working Directory Set to:\n",projdir))
+```
+
+    ## Working Directory Set to:
+    ##  /home/gentok/GoogleDrive/Others/Shared with Fan/ForeignerJapan
+
+``` r
+setwd(projdir)
+
 # Import Matched Data
 sifcct_m1 <- readRDS("./data/sifcct_young_matched_1.rds")
 sifcct_m2 <- readRDS("./data/sifcct_young_matched_2.rds")
@@ -49,13 +64,6 @@ sifcct_m5$zip_pref <- sifcct$zip_pref[match(sifcct_m5$zip,sifcct$zip)]
 ## packages
 # devtools::install_github("gentok/estvis")
 require(estvis)
-```
-
-    ## Loading required package: estvis
-
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE, : there is no package called 'estvis'
-
-``` r
 require(multiwayvcov)
 require(sandwich)
 require(lmtest)

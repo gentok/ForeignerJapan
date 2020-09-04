@@ -21,6 +21,15 @@ setwd(projdir)
 ## Load Image of Main Analysis
 load(paste0(projdir,"/out/analysis_main_v4.RData"))
 
+## Set Working Directory (Automatically) ##
+require(rstudioapi); require(rprojroot)
+if (rstudioapi::isAvailable()==TRUE) {
+  setwd(dirname(rstudioapi::getActiveDocumentContext()$path)); 
+} 
+projdir <- find_root(has_file("thisishome.txt"))
+cat(paste("Working Directory Set to:\n",projdir))
+setwd(projdir)
+
 # Import Matched Data
 sifcct_m1 <- readRDS("./data/sifcct_young_matched_1.rds")
 sifcct_m2 <- readRDS("./data/sifcct_young_matched_2.rds")
