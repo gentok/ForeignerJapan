@@ -1,11 +1,10 @@
 # Can University Education Cultivate Immigrant Integration? The Case of Local Enfranchisement for Foreign Residents in Japan
 
-<!--
-[Working paper (6/4/2019)](paper/DonorCompetition_v5-2.pdf)
--->
-[Working paper (9/3/2020)](paper/Kato2020caun_v4.1_090320.pdf)
+[Working paper (9/23/2020)](paper/Kato2020caun_v4.2_090320.pdf)
 
 [Online Appendix (9/3/2020)](paper/Kato2020caun_v4.1_090320_appendix.pdf)
+
+[Presentation Slides (9/12/2020)](paper/Kato2020caun_v4.1_slides_apsa_handout_091220.pdf)
 
 ### Authors 
 
@@ -14,7 +13,7 @@ Gento Kato (Nazarbayev University) *gento.katoATnu.edu.kz*
 Fan Lu (Queen's University) *fan.luATquensu.ca*
 
 ### Abstract
-While there is lively debate on whether higher education cultivates support for admitting foreigners into North America and Europe, there is little discussion on the extent to which this relationship generalizes beyond them. Furthermore, willingness to admit foreigners is not the same as willingness to integrate them. In light of Japan's growing reliance on foreign workers to solve its labor shortage problem and the public’s divided opinion on integrating foreigners,we examine the relationship between university education and Japanese attitudes toward immigration. We use matching techniques that incorporate individual attributes as well as residential zip codes to analyze public opinion surveys fielded between 2009 and 2014. Our findings suggest Japanese university education has limited effect on support for enfranchising permanent resident foreigners, and if there is any, the effect is more visible among females than males. Furthermore, any effects are mediated through improved attitudes towards Koreans, the dominant group of permanent resident foreigners rather than more liberal political ideologies.
+While there is lively debate on whether higher education cultivates support for admitting foreigners into North America and Europe, there is little discussion on the extent to which this relationship generalizes beyond these continents. In light of Japan's growing reliance on foreign workers to solve its labor shortage problem and the public’s divided opinion on integrating foreigners, we examine the relationship between university education and Japanese attitudes toward local enfranchisement for foreign residents. We use matching techniques that incorporate individual attributes as well as residential zip codes to analyze public opinion surveys fielded between 2009 and 2014. Our findings suggest Japanese university education has limited effect on support for enfranchising permanent resident foreigners, and if there is any, it is more visible among females than males. Furthermore, it is mediated through improved attitudes toward Korea, the country of origin for most permanent resident foreigners, rather than attitudes toward China or more liberal political ideology.
 
 ### Dataset
 
