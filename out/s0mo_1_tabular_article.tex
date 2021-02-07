@@ -1,0 +1,43 @@
+
+\begin{table}[t!]
+\caption{The effect of university education on the support for granting suffrage to permanent residents in Japan}
+\begin{center}
+\begin{scriptsize}
+\begin{threeparttable}
+\begin{tabular}{l D{)}{)}{13)3} D{)}{)}{13)7} D{)}{)}{13)3}}
+\toprule
+ & \multicolumn{1}{c}{OLS} & \multicolumn{2}{c}{Multinomial logit} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-4}
+ & \multicolumn{1}{c}{ } & \multicolumn{1}{c}{vs. Agree} & \multicolumn{1}{c}{vs. Neither} \\
+\midrule
+University education              & -0.0327 \; (0.0137)^{*}   & -0.2250 \; (0.1029)^{***}    & -0.4884 \; (0.1036)^{*}   \\
+Gender (male)                     & -0.1097 \; (0.0108)^{***} & -0.7877 \; (0.0819)^{***}    & -0.8149 \; (0.0857)^{***} \\
+Age (by 10 years, centered at 45) & 0.0013 \; (0.0057)        & 0.0267 \; (0.0448)^{\dagger} & -0.0816 \; (0.0464)       \\
+University * Male                 & 0.0343 \; (0.0170)^{*}    & 0.3177 \; (0.1258)^{**}      & 0.3265 \; (0.1273)^{*}    \\
+University * Age                  & -0.0149 \; (0.0092)       & -0.1117 \; (0.0689)          & 0.0359 \; (0.0701)        \\
+University * Male * Age           & 0.0151 \; (0.0118)        & 0.0818 \; (0.0878)           & 0.0541 \; (0.0884)        \\
+Male * Age                        & 0.0106 \; (0.0081)        & 0.0953 \; (0.0622)           & -0.0205 \; (0.0634)       \\
+\% of Life Residing Locally (zip) & -0.0358 \; (0.0296)       & -0.1588 \; (0.2178)          & 0.1554 \; (0.2153)        \\
+DID residence (zip)               & 0.0110 \; (0.0113)        & 0.0576 \; (0.0821)^{\dagger} & 0.1353 \; (0.0823)        \\
+Foreigner \% sqrt. (zip)          & -0.0129 \; (0.0089)       & -0.0909 \; (0.0665)^{*}      & -0.1365 \; (0.0678)       \\
+University \% by 10\% (zip)       & 0.0004 \; (0.0073)        & 0.0115 \; (0.0530)           & -0.0661 \; (0.0525)       \\
+DID proportion (mun.)             & -0.0129 \; (0.0198)       & -0.0445 \; (0.1434)^{**}     & -0.3924 \; (0.1455)       \\
+Foreigner \% sqrt. (mun.)         & -0.0031 \; (0.0124)       & -0.0283 \; (0.0917)          & 0.0716 \; (0.0929)        \\
+University \% by 10\% (mun.)      & -0.0012 \; (0.0103)       & -0.0233 \; (0.0759)          & 0.1103 \; (0.0746)        \\
+\midrule
+R$^2$                             & 0.0289                    &                              &                           \\
+Adj. R$^2$                        & 0.0246                    &                              &                           \\
+Num. obs.                         & 7827 & \multicolumn{2}{D{.}{.}{5.4}}{7827}                      \\
+AIC                               &                           & \multicolumn{2}{D{.}{.}{5.4}}{16618.2864}                \\
+Log Likelihood                    &                           & \multicolumn{2}{D{.}{.}{5.4}}{-8239.1432}                \\
+K                                 &                           & \multicolumn{2}{D{.}{.}{5.4}}{3}                         \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\tiny{$^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$; $^{\dagger}p<0.1$. Robust standard errors in parentheses. Survey month fixed effects ommited from the output. For multinomial logit, the baseline category is "disagree". The table is exported using \texttt{texreg} R package \citep{Leifeld2013teco}.}
+\end{tablenotes}
+\end{threeparttable}
+\end{scriptsize}
+\label{table:s0mo_1_article}
+\end{center}
+\end{table}

@@ -1,7 +1,7 @@
 #' ---
 #' title: "SIFCCT Recoding"
 #' author: "Fan Lu & Gento Kato"
-#' date: "Dec 30, 2019"
+#' date: "Dec 18, 2020"
 #' ---
 #' 
 #' # Preparation 
@@ -42,10 +42,12 @@ require(psych)
 #'
 
 # Initiate New Data Set
-d <- data.frame(id = c(do1$caseid, do2$caseid), 
+d <- data.frame(id = paste(c(rep(1,nrow(do1)),rep(2,nrow(do2))),
+                           c(do1$caseid, do2$caseid),sep="_"), 
                 wave = as.integer(c(do1$wave, do2$wave)), 
                 panel = as.integer(c(do1$panel, do2$panel)),
-                panelid = c(do1$panelid, do2$panelid))
+                panelid = paste(c(rep(1,nrow(do1)),rep(2,nrow(do2))),
+                                c(do1$panelid, do2$panelid),sep="_"))
 
 # Wave Variable
 table(as.numeric(d$wave), useNA="always")
@@ -60,37 +62,39 @@ table(as.numeric(d$wave), useNA="always")
 
 # Original Variable
 tmp <- c(do1$i58a3, do2$i58a3) 
-table(d$wave, is.na(tmp)) # Not asked in 1, 23, 24 waves
-table(tmp, useNA="always")
+table(tmp, d$wave%in%c(1,23,24), useNA="always") # Not asked in 1, 23, 24 waves
 # Recoded Variable
-d$foreignsuff <- ifelse(tmp==7, NA, ifelse(tmp==6, 2, 5 - as.numeric(tmp)))/4
-table(d$foreignsuff, useNA="always")
+d$foreignsuff <- ifelse(tmp==7, 2, ifelse(tmp==6, 2, 5 - as.numeric(tmp)))/4
+table(d$foreignsuff, d$wave%in%c(1,23,24), useNA="always")
 d$foreignsuff3 <- ifelse(d$foreignsuff==0.5,1,ifelse(d$foreignsuff>0.5,3,2))
 d$foreignsuff3 <- factor(d$foreignsuff3, labels=c("Neither","Disagree","Agree"))
-table(d$foreignsuff3, useNA="always")
+table(d$foreignsuff3, d$wave%in%c(1,23,24), useNA="always")
+d$foreignsuff3x <- factor(d$foreignsuff3, levels=c("Disagree","Neither","Agree"))
+table(d$foreignsuff3x, d$wave%in%c(1,23,24), useNA="always")
 
 #'
-#' ### Support increase immigrants. (Only in Wave 2)
-#' 
-#' * Original: 1=Increase immigrants 5= Reduce immigrants
-#' * Recoded: 1=Increase immigrants, 0.5=Neither/DK, 0=Reduce immigrants, Missing=NA
+#' ### Increase in long-term resident foreigners (Only in Wave 2)
+#'
 
-# Original: Only in Nov 2011 survey!
-table(do1$i66, do1$wave)
-tmp <- c(do1$i66, rep(NA, nrow(do2)))
-# Recoded Variable
-d$immigincrease <- ifelse(tmp==7, NA, ifelse(tmp==6, 2, 5 - tmp))/4
-table(d$immigincrease, useNA="always")
+plot(table(do1$i66))
+
+d$immigincrease <- NA
+d$immigincrease[1:nrow(do1)] <- 
+  ifelse(do1$i66==6,2,ifelse(do1$i66==7, 2, (5 - as.numeric(do1$i66))))/4
+table(d$immigincrease, d$wave%in%c(2), useNA="always")
 d$immigincrease3 <- ifelse(d$immigincrease==0.5,1,ifelse(d$immigincrease>0.5,3,2))
-d$immigincrease3 <- factor(d$immigincrease3, labels=c("Neither","Decrease","Increase"))
-table(d$immigincrease3, useNA="always")
+d$immigincrease3 <- factor(d$immigincrease3, labels=c("Neither","Disagree","Agree"))
+table(d$immigincrease3, d$wave%in%c(2), useNA="always")
+d$immigincrease3x <- factor(d$immigincrease3, levels=c("Disagree","Neither","Agree"))
+table(d$immigincrease3x, d$wave%in%c(2), useNA="always")
 
 #'
-#' ### Trustworthines of Foreigners (Only in Wave 2)
+#' ### Trustworthiness of Foreigners (Only in Wave 2)
 #' 
 #' * Original: 1=Not trustworthy 7=trustworthy
 #' * Recoded: 0-1 range, 1 is the most trustworthy
 #' 
+
 plot(table(do1$i68a1))
 plot(table(do1$i68a2))
 plot(table(do1$i68a3))
@@ -104,29 +108,29 @@ d$trust_old_sko <- d$trust_old_kor <- d$trust_old_chn <-
   d$trust_new_sko <- d$trust_new_chn <- d$trust_new_bra <- 
   d$trust_new_phl <- d$trust_new_usa <- NA
 d$trust_old_sko[1:nrow(do1)] <- old_sko <- 
-  (ifelse(do1$i68a1==8,4,ifelse(do1$i68a1==9,NA,as.numeric(do1$i68a1)))-1)/6 # SK Old Commer
+  (ifelse(do1$i68a1==8,3,ifelse(do1$i68a1==9,3,as.numeric(do1$i68a1)))-1)/6 # SK Old Commer
 d$trust_old_kor[1:nrow(do1)] <- old_kor <- 
-  (ifelse(do1$i68a2==8,4,ifelse(do1$i68a2==9,NA,as.numeric(do1$i68a2)))-1)/6 # Korean Peninsura Old Commer
+  (ifelse(do1$i68a2==8,3,ifelse(do1$i68a2==9,3,as.numeric(do1$i68a2)))-1)/6 # Korean Peninsura Old Commer
 d$trust_old_chn[1:nrow(do1)] <- old_chn <- 
-  (ifelse(do1$i68a3==8,4,ifelse(do1$i68a3==9,NA,as.numeric(do1$i68a3)))-1)/6 # CH Old Commer
+  (ifelse(do1$i68a3==8,3,ifelse(do1$i68a3==9,3,as.numeric(do1$i68a3)))-1)/6 # CH Old Commer
 d$trust_new_sko[1:nrow(do1)] <- new_sko <- 
-  (ifelse(do1$i68a4==8,4,ifelse(do1$i68a4==9,NA,as.numeric(do1$i68a4)))-1)/6 # SK New Commer
+  (ifelse(do1$i68a4==8,3,ifelse(do1$i68a4==9,3,as.numeric(do1$i68a4)))-1)/6 # SK New Commer
 d$trust_new_chn[1:nrow(do1)] <- new_chn <- 
-  (ifelse(do1$i68a5==8,4,ifelse(do1$i68a5==9,NA,as.numeric(do1$i68a5)))-1)/6 # CH New Commer
+  (ifelse(do1$i68a5==8,3,ifelse(do1$i68a5==9,3,as.numeric(do1$i68a5)))-1)/6 # CH New Commer
 d$trust_new_bra[1:nrow(do1)] <- new_bra <- 
-  (ifelse(do1$i68a6==8,4,ifelse(do1$i68a6==9,NA,as.numeric(do1$i68a6)))-1)/6 # Brazil New Commer
+  (ifelse(do1$i68a6==8,3,ifelse(do1$i68a6==9,3,as.numeric(do1$i68a6)))-1)/6 # Brazil New Commer
 d$trust_new_phl[1:nrow(do1)] <- new_phl <- 
-  (ifelse(do1$i68a7==8,4,ifelse(do1$i68a7==9,NA,as.numeric(do1$i68a7)))-1)/6 # PHL New Commer
+  (ifelse(do1$i68a7==8,3,ifelse(do1$i68a7==9,3,as.numeric(do1$i68a7)))-1)/6 # PHL New Commer
 d$trust_new_usa[1:nrow(do1)] <- new_usa <- 
-  (ifelse(do1$i68a8==8,4,ifelse(do1$i68a8==9,NA,as.numeric(do1$i68a8)))-1)/6 # US New Commer
+  (ifelse(do1$i68a8==8,3,ifelse(do1$i68a8==9,3,as.numeric(do1$i68a8)))-1)/6 # US New Commer
 
 tmp <- cor(cbind(old_sko,old_kor,old_chn,new_sko,
                  new_chn,new_bra,new_phl,new_usa),use="pairwise") 
 round(tmp,3)
 
 # Cronbach's Alpha
-alpha(cbind(old_sko,old_kor,old_chn)) # Old Commers
-alpha(cbind(new_sko,new_chn,new_bra,new_phl,new_usa)) # New Commers
+psych::alpha(cbind(old_sko,old_kor,old_chn)) # Old Commers
+psych::alpha(cbind(new_sko,new_chn,new_bra,new_phl,new_usa)) # New Commers
 
 # Combine
 d$trust_old <- d$trust_new <- NA
@@ -202,7 +206,10 @@ table(d$foreignfamily2, useNA="always")
 d$foreignacqu <- ifelse(d$foreignfriend_jpn + 
                           d$foreignfriend_out + 
                           d$foreignfamily > 0, 1, 0)
-table(d$foreignacqu, useNA="always")
+table(d$foreignacqu[d$wave==2], useNA="always")
+d$foreignacqux <- d$foreignacqu
+d$foreignacqux[which(d$wave==2 & is.na(d$foreignacqu))] <- 0
+table(d$foreignacqux[d$wave==2], useNA="always")
 
 d$foreignacqu2 <- ifelse(d$foreignfriend_jpn2 + 
                           d$foreignfriend_out2 + 
@@ -213,18 +220,23 @@ d$foreignacqu2 <- ifelse(d$foreignfriend_jpn2 +
 table(d$foreignacqu2, useNA="always")
 
 #'
-#' ### Familiality with Foreign Countries
+#' ### Familiarity with Foreign Countries
 #'
 
+tmp1 <- as.numeric(c(do1$i14a1, do2$i14a1))
+tmp1 <- ifelse(tmp1==999, 50, ifelse(tmp1==888, 50, tmp1))
+barplot(table(tmp1, useNA="always"))
+d$familiarityFT_USA <- tmp1/100
+
 tmp2 <- as.numeric(c(do1$i14a2, do2$i14a2))
-tmp2 <- ifelse(tmp2==999, NA, ifelse(tmp2==888, 50, tmp2))
+tmp2 <- ifelse(tmp2==999, 50, ifelse(tmp2==888, 50, tmp2))
 barplot(table(tmp2, useNA="always"))
-d$familialityFT_CHN <- tmp2/100
+d$familiarityFT_CHN <- tmp2/100
 
 tmp3 <- as.numeric(c(do1$i14a3, do2$i14a3))
-tmp3 <- ifelse(tmp3==999, NA, ifelse(tmp3==888, 50, tmp3))
+tmp3 <- ifelse(tmp3==999, 50, ifelse(tmp3==888, 50, tmp3))
 barplot(table(tmp3, useNA="always"))
-d$familialityFT_KOR <- tmp3/100
+d$familiarityFT_KOR <- tmp3/100
 
 #'
 #' ### Political Knowledge
@@ -248,9 +260,9 @@ tmp6 <- c(do1$i26, do2$i26)==3
 table(tmp6, useNA="always")
 # Recoded
 d$knowledge <- (tmp1 + tmp2 + tmp3 + tmp4 + tmp5 + tmp6)/6
-table(d$knowledge, useNA="always")
+table(d$knowledge, d$panel, useNA="always")
 # Cronbach's Alpha is 0.77
-alpha(cbind(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6))
+psych::alpha(cbind(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6))
 
 #' 
 #' ### Interest in politics. 
@@ -263,7 +275,7 @@ alpha(cbind(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6))
 tmp <- as.numeric(c(do1$i5, do2$i5))
 table(tmp, useNA="always") 
 # Recoded
-d$polint <- ifelse(tmp%in%c(5,6), NA, 4 - tmp)/3
+d$polint <- ifelse(tmp%in%c(5,6), 0, 4 - tmp)/3
 table(d$polint, useNA="always")
 
 #'
@@ -277,8 +289,16 @@ table(d$polint, useNA="always")
 tmp <- as.numeric(c(do1$i6, do2$i6))
 table(tmp, useNA="always") 
 # Recoded
-d$intlint <- ifelse(tmp%in%c(5,6), NA, 4 - tmp)/3
+d$intlint <- ifelse(tmp%in%c(5,6), 0, 4 - tmp)/3
 table(d$intlint, useNA="always")
+
+#'
+#' ### Political Awareness (Factor Score)
+#'
+
+tmp <- psych::fa(cbind(d$knowledge,d$polint))
+hist((tmp$scores), 10)
+d$awareness <- tmp$scores
 
 #'
 #' ## PREDICTORS
@@ -300,6 +320,11 @@ d$edu <- factor(d$edu, labels = c("<=SHS",
                                   ">SHS & <College(4yr)",
                                   ">=College(4yr)"))
 table(d$edu, useNA="always")
+
+# Education Treatment 
+d$edu2 <- ifelse(d$edu==">=College(4yr)",1,0)
+d$edu2x <- d$edu2
+d$edu2x[which(d$edu==">SHS & <College(4yr)")] <- NA
 
 #' 
 #' ### Gender
@@ -329,6 +354,12 @@ table(tmp, useNA="always")
 # Recoded
 d$age <- ifelse(tmp==99, NA, tmp)
 table(d$age, useNA="always")
+
+## Recoded Born Year (by Academic Year: April-March)
+d$bornyr <- NA
+d$bornyr[which(d$wave%in%seq(1,6))] <- 2011 - d$age[which(d$wave%in%seq(1,6))]
+d$bornyr[which(d$wave%in%seq(7,18))] <- 2012 - d$age[which(d$wave%in%seq(7,18))]
+d$bornyr[which(d$wave%in%seq(19,24))] <- 2013 - d$age[which(d$wave%in%seq(19,24))]
 
 # Recoded Categorical
 d$agecat <- NA
@@ -363,13 +394,21 @@ table(tmp, useNA="always")
 convper <- function(old.var,missing.val){
   r <- old.var
   r[r %in% missing.val] <- NA
-  rt <- cumsum(table(r)/sum(table(r))) # Cummulative Percentile
+  rt <- cumsum(table(r)/sum(table(r))) # Cumulative Percentile
   rt <- rt - diff(c(0,rt))/2 # Take Midpoints 
   r <- rt[match(r, names(rt))]
   return(r)
 }
 d$income <- convper(tmp, c(9,10))
 table(d$income, useNA="always")
+
+d$incomecat <- NA
+d$incomecat[which(d$income<=0.33)] <- "Low"
+d$incomecat[which(d$income>0.33 & d$income<=0.67)] <- "Middle"
+d$incomecat[which(d$income>0.67)] <- "High"
+d$incomecat[which(tmp%in%c(9,10))] <- "Missing"
+d$incomecat <- factor(d$incomecat, levels=c("Low","Middle","High","Missing"))
+table(d$incomecat, useNA="always") 
 
 #'
 #' ### Newspaper which is read the most
@@ -410,17 +449,21 @@ tmp[is.na(tmp)] <- as.numeric(c(do1$i9f2, do2$i9f2))[is.na(tmp)]
 tmp[is.na(tmp)] <- as.numeric(c(do1$i9p, do2$i9p))[is.na(tmp)]
 table(tmp, useNA="always")
 # Recoded
-d$evlife <- ifelse(tmp==7, NA, ifelse(tmp==6, 0.5, 5 - tmp))/4
+d$evlife <- ifelse(tmp==7, 2, ifelse(tmp==6, 2, 5 - tmp))/4
 table(d$evlife, useNA="always")
+
+d$evlife_verybad <- ifelse(d$evlife%in%0, 1, 0)
+d$evlife_bad <- ifelse(d$evlife%in%0.25, 1, 0)
+d$evlife_notbad <- ifelse(!d$evlife%in%c(0,0.25), 1, 0)
 
 # Question Wording Type (just in case)
 # 0 = assessment of current economy
 # 1 = assessment of the change in economy from a month ago
-d$evlife_qtype <- (is.na(c(do1$i9f1, do2$i9f1)) & d$panel==1)*1
+d$evlife_qtype <- 1 - (!is.na(c(do1$i9f1, do2$i9f1)) | d$panel==1)*1
 table(d$evlife_qtype, useNA="always")
 
 #'
-#' ### assessment of current japanese economy. 
+#' ### assessment of current Japanese economy. 
 #' 
 #' Note: Question Wording is randomized among fresh respondents.
 #' 
@@ -434,13 +477,17 @@ tmp[is.na(tmp)] <- as.numeric(c(do1$i11f2, do2$i11f2))[is.na(tmp)]
 tmp[is.na(tmp)] <- as.numeric(c(do1$i11p, do2$i11p))[is.na(tmp)]
 table(tmp, useNA="always")
 # Recoded
-d$evecon <- ifelse(tmp==7, NA, ifelse(tmp==6, 2, 5 - tmp))/4
+d$evecon <- ifelse(tmp==7, 2, ifelse(tmp==6, 2, 5 - tmp))/4
 table(d$evecon, useNA="always")
+
+d$evecon_verybad <- ifelse(d$evecon%in%0, 1, 0)
+d$evecon_bad <- ifelse(d$evecon%in%0.25, 1, 0)
+d$evecon_notbad <- ifelse(!d$evecon%in%c(0,0.25), 1, 0)
 
 # Question Wording Type (just in case)
 # 0 = assessment of current economy
 # 1 = assessment of the change in economy from a month ago
-d$evecon_qtype <- (is.na(c(do1$i11f1, do2$i11f1)) & d$panel==1)*1
+d$evecon_qtype <- 1 - (!is.na(c(do1$i11f1, do2$i11f1)) | d$panel==1)*1
 table(d$evecon_qtype, useNA="always")
 
 #'
@@ -585,13 +632,22 @@ d$left <- ifelse(d$psup%in%"Left",1,0)
 d$right <- ifelse(d$psup%in%"Right",1,0)
 
 #'
-#' # LDP Feeling Thermometer
+#' # LDP - DPJ Feeling Thermometer
 #'
 
 tmp <- as.numeric(c(do1$i8a2,do2$i8a2))
 table(tmp)
-d$ldpft <- ifelse(tmp==999,NA,ifelse(tmp==888,0.5,tmp/100))
+d$ldpft <- ifelse(tmp==999,0.5,ifelse(tmp==888,0.5,tmp/100))
 summary(d$ldpft)
+
+tmp <- as.numeric(c(do1$i8a1,do2$i8a1))
+table(tmp)
+d$dpjft <- ifelse(tmp==999,0.5,ifelse(tmp==888,0.5,tmp/100))
+summary(d$dpjft)
+
+d$ldpdpjft = (d$ldpft - d$dpjft + 1)/2
+summary(d$ldpdpjft)
+hist(d$ldpdpjft)
 
 #'
 #' # Ideology
@@ -599,7 +655,7 @@ summary(d$ldpft)
 
 tmp <- as.numeric(c(do1$i20,do2$i20))
 table(tmp)
-d$ideology <- ifelse(tmp==999,NA,ifelse(tmp==99,0.5,tmp/10))
+d$ideology <- ifelse(tmp==999,0.5,ifelse(tmp==99,0.5,tmp/10))
 table(d$ideology, useNA="always")
 
 #'
@@ -695,20 +751,20 @@ d$zip <- tmp
 # adddt9 <- pblapply(c(zipvec2,zipvec3), function(k) fromJSON(getURL(paste0(query_prefix,k))))
 # saveRDS(adddt9, "./data/sifcct_address/adddt9.rds")
 # 
-# adddt1 <- readRDS("./data/sifcct_address/adddt1.rds")
-# adddt2 <- readRDS("./data/sifcct_address/adddt2.rds")
-# adddt3 <- readRDS("./data/sifcct_address/adddt3.rds")
-# adddt4 <- readRDS("./data/sifcct_address/adddt4.rds")
-# adddt5 <- readRDS("./data/sifcct_address/adddt5.rds")
-# adddt6 <- readRDS("./data/sifcct_address/adddt6.rds")
-# adddt7 <- readRDS("./data/sifcct_address/adddt7.rds")
-# adddt8 <- readRDS("./data/sifcct_address/adddt8.rds")
-# adddt9 <- readRDS("./data/sifcct_address/adddt9.rds")
+# adddt1 <- readRDS("./data/original/sifcct_address/adddt1.rds")
+# adddt2 <- readRDS("./data/original/sifcct_address/adddt2.rds")
+# adddt3 <- readRDS("./data/original/sifcct_address/adddt3.rds")
+# adddt4 <- readRDS("./data/original/sifcct_address/adddt4.rds")
+# adddt5 <- readRDS("./data/original/sifcct_address/adddt5.rds")
+# adddt6 <- readRDS("./data/original/sifcct_address/adddt6.rds")
+# adddt7 <- readRDS("./data/original/sifcct_address/adddt7.rds")
+# adddt8 <- readRDS("./data/original/sifcct_address/adddt8.rds")
+# adddt9 <- readRDS("./data/original/sifcct_address/adddt9.rds")
 # 
 # ## Combine ALl
 # adddt <- c(adddt1,adddt2,adddt3,adddt4,adddt5,adddt6,adddt7,adddt8,adddt9)
-# names(adddt) <- c(zipvec,zipvec2)
-# saveRDS(adddt, "./data/sifcct_address/adddt_all.rds")
+# names(adddt) <- c(zipvec,zipvec2,zipvec3)
+# saveRDS(adddt, "./data/original/sifcct_address/adddt_all.rds")
 # rm(adddt1,adddt2,adddt3,adddt4,adddt5,adddt6,adddt7,adddt8,adddt9)
 # 
 # addloc <- data.frame(zip=names(adddt),
@@ -728,11 +784,11 @@ d$zip <- tmp
 # addloc$lon <- as.numeric(sapply(coordtmp, function(k) k[1]))
 # addloc$lat <- as.numeric(sapply(coordtmp, function(k) k[2]))
 # 
-# saveRDS(addloc, "./data/sifcct_address/addloc.rds")
+# saveRDS(addloc, "./data/original/sifcct_address/addloc.rds")
 # rm(adddt, addloc)
 
 # Longitude, Latitude, Prefecture, and Municipality from Zip Code
-addloc <- readRDS(paste0(projdir,"/data/sifcct_address/addloc.rds"))
+addloc <- readRDS(paste0(projdir,"/data/original/sifcct_address/addloc.rds"))
 d$zip_lon <- d$zip_lat <- NA
 d$zip_lon[which(!is.na(d$zip))] <- addloc$lon[match(d$zip[which(!is.na(d$zip))],addloc$zip)]
 d$zip_lat[which(!is.na(d$zip))] <- addloc$lat[match(d$zip[which(!is.na(d$zip))],addloc$zip)]
@@ -750,14 +806,7 @@ d$zip_muni_kana[which(!is.na(d$zip))] <- addloc$muni_kana[match(d$zip[which(!is.
 tmp <- as.numeric(c(do1$i55,do2$i55))
 table(tmp)
 d$lvlen <- ifelse(tmp==999,NA,tmp) # Length of Living
-d$lvpr <- d$lvlen/d$age # Propotion in Life Living in the Current Address
-
-#'
-#' # Use Only Fresh Samples
-#'
-
-d <- d[d$panel==0,]
-d <- d[,which(colnames(d)!="panel")]
+d$lvpr <- d$lvlen/d$age # Proportion in Life Living in the Current Address
 
 #'
 #' # Saving Data
@@ -774,7 +823,4 @@ saveRDS(d, paste0(projdir, "/data/sifcct_latest_v5.rds"))
 # tmp <- list.files(paste0(projdir,"/src"))
 # tmp <- tmp[grep("\\.spin\\.R$|\\.spin\\.Rmd$|\\.utf8\\.md$|\\.knit\\.md$",tmp)]
 # for (i in 1:length(tmp)) file.remove(paste0(projdir,"/src/",tmp[i]))
-# In Terminal, move to src directory and run:
-# Rscript -e "rmarkdown::render('data_sifcct_1_recode_v5.R', 'pdf_document', encoding = 'UTF-8')"
-# Rscript -e "rmarkdown::render('data_sifcct_1_recode_v5.R', 'github_document', clean=FALSE)"
 

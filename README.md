@@ -1,10 +1,10 @@
-# Can University Education Cultivate Immigrant Integration? The Case of Local Enfranchisement for Foreign Residents in Japan
+# In Japan, University Education Does Not Increase  Support for Immigrant Integration
 
-[Working paper (9/23/2020)](paper/Kato2020caun_v4.2_090320.pdf)
+[Working paper (2/27/2020)](paper/Kato2021inja_v5.0_020721.pdf)
 
-[Online Appendix (9/3/2020)](paper/Kato2020caun_v4.1_090320_appendix.pdf)
+[Online Appendix (2/27/2020)](paper/Kato2021inja_v5.0_020721_appendix.pdf)
 
-[Presentation Slides (9/12/2020)](paper/Kato2020caun_v4.1_slides_apsa_handout_091220.pdf)
+<!-- [Presentation Slides (9/12/2020)](paper/Kato2020caun_v4.1_slides_apsa_handout_091220.pdf) -->
 
 ### Authors 
 
@@ -13,55 +13,58 @@ Gento Kato (Nazarbayev University) *gento.katoATnu.edu.kz*
 Fan Lu (Queen's University) *fan.luATquensu.ca*
 
 ### Abstract
-While there is lively debate on whether higher education cultivates support for admitting foreigners into North America and Europe, there is little discussion on the extent to which this relationship generalizes beyond these continents. In light of Japan's growing reliance on foreign workers to solve its labor shortage problem and the public’s divided opinion on integrating foreigners, we examine the relationship between university education and Japanese attitudes toward local enfranchisement for foreign residents. We use matching techniques that incorporate individual attributes as well as residential zip codes to analyze public opinion surveys fielded between 2009 and 2014. Our findings suggest Japanese university education has limited effect on support for enfranchising permanent resident foreigners, and if there is any, it is more visible among females than males. Furthermore, it is mediated through improved attitudes toward Korea, the country of origin for most permanent resident foreigners, rather than attitudes toward China or more liberal political ideology.
+While there is lively debate on whether higher education cultivates support for admitting foreigners into North America and Europe, there is little discussion on the extent to which this relationship generalizes beyond these continents. In light of Japan's growing reliance on foreign workers to solve its labor shortage problem and the public’s divided opinion on integrating foreigners, we examine the relationship between university education and Japanese attitudes toward local enfranchisement for foreign residents. Using a large-scale online survey with corresponding ZIP codes, we isolate the causal effects of education independent of residential contexts. We further assess mechanisms underlying such effects through causal mediation analysis. Our findings show Japanese university education has limited effect on support for enfranchising permanent resident foreigners. Even though Japan is also a modern democracy with well-developed institutions of higher education that lead to greater financial security, these institutions do not lead to more supportive attitudes toward immigrant integration because they are neither vehicles for liberalization in ideology nor positive affect toward foreigners.
 
 ### Dataset
 
 * **Survey on the Image of Foreign Countries and Current Topics (SIFCCT)**
     * The original datasets are available from SSJDA website ([https://csrda.iss.u-tokyo.ac.jp/en/](https://csrda.iss.u-tokyo.ac.jp/en/)), survey number 0979 and 0980.
-    * Zip code dataset is not published through SSJDA. Available upon request from the authors.
+    * ZIP code and mail-in datasets are not published through SSJDA. Available upon request from the authors.
 
-* **UTokyo-Asahi Survey (UTAS)**
-    * The original datasets are available from the survey website ([http://www.masaki.j.u-tokyo.ac.jp/utas/utasindex.html](http://www.masaki.j.u-tokyo.ac.jp/utas/utasindex.html)). 2009, 2012, and 2014 waves are used in this study.
-
-To make replication codes work, original datasets must be stored under <code>data/original/</code> with names <code>panel_wave1-12.csv</code>, <code>panel_wave13-24.csv</code> (for SIFCCT), <code>2009_2010utas130816.sav</code>, <code>2012-2013UTASV131129.csv</code>, and <code>2014_2016UTASV20161004.csv</code> (for UTAS).
+To make replication codes work, original datasets must be stored under <code>data/original/</code> with names <code>panel_wave1-12.csv</code>,  <code>panel_wave13-24.csv</code>, and <code>sifcct_mail.csv</code>.
 
 ### Code Files (in R)
 
 To replicate analysis, clone (or download and extract the zip folder of) repository and run each file (working directory will be automatically set for most of editors):
 
-* Data Modification (SIFCCT)
+* Data Modification (SIFCCT, Online)
 
-    1. Recoding: [Code](data_sifcct_1_recode_v4.R)|[Output](data_sifcct_1_recode_v4.md)
+    1. Recoding: [Code (Main)](data_sifcct_1_recode_v5.R)|[Output (Main)](data_sifcct_1_recode_v5.md);[Code (Movers)](data_sifcct_1x_recode_v5.R)|[Output (Movers)](data_sifcct_1x_recode_v5.md) 
 
-    2. Matching (Young): [Code](data_sifcct_2_matching_young_v4.R)|[Output](data_sifcct_2_matching_young_v4.md)
+    2. Matching: [Code (Main)](data_sifcct_2_matching_all_v5.R); [Code (Movers)](data_sifcct_3_matching_moved_v5.R)
 
-    3. Matching Visualization: [Code](data_sifcct_3_matching_young_visual_v4.R)|[Output](data_sifcct_3_matching_young_visual_v4.md)
+* Data Modification (SIFCCT, Mail-In)
 
-* Data Modification (UTAS)
+    1. Recoding: [Code (Main)](data_mail_1_recode_v5.R)|[Output (Main)](data_mail_1_recode_v5.md);[Code (Movers)](data_mail_1x_recode_v5.R)|[Output (Movers)](data_mail_1x_recode_v5.md)
 
-    1. Recoding: [Code](data_utas_1_recode_v4.R)|[Output]((data_utas_1_recode_v4.md))
-
-* Analysis 
-
-    1. Main Descriptive Statistics: [Code](src/analysis_0_descriptives_v4.R)|[Output](src/analysis_0_descriptives_v4.md)
+* Analysis (SIFCCT, Online)
     
-    2. Main Analysis with Unmatched Data: [Code](src/analysis_1_original_v4.R)|[Output](src/analysis_1_original_v4.md)
+    1. Main Analysis: [Code (Main)](src/analysis_2_matched_v5.R)|[Output (Main)](src/analysis_2_matched_v5.md); [Code (Movers)](src/analysis_2x_matched_v5.R)|[Output (Movers)](src/analysis_2x_matched_v5.md)
+
+    2. Mediation Analysis with Unmatched Data: [Code](src/analysis_3_mediation_unmatched_v5.R)|[Output](src/analysis_3_mediation_unmatched_v5.md) 
+
+    3. Mediation Analysis with Standard Matching Data: [Code](src/analysis_4_mediation_matchednoL_v5.R)|[Output](src/analysis_4_mediation_matchednoL_v5.md) 
+
+    4. Mediation Analysis with Distance-Adjusted Matching Data (Lambda = 50km): [Code](src/analysis_5_mediation_matchedL50_v5.R)|[Output](src/analysis_5_mediation_matchedL50_v5.md) 
+
+    5. Mediation Analysis with Distance-Adjusted Matching Data (Lambda = 100km): [Code](src/analysis_6_mediation_matchedL100_v5.R)|[Output](src/analysis_6_mediation_matchedL100_v5.md) 
+
+    6. Mediation Analysis with Distance-Adjusted Matching Data (Lambda = 200km): [Code](src/analysis_7_mediation_matchedL200_v5.R)|[Output](src/analysis_7_mediation_matchedL200_v5.md) 
     
-    3. Main Analysis with Matched Data: [Code](src/analysis_2_matched_v4.R)|[Output](src/analysis_2_matched_v4.md)  
+    7. Mediation Analysis with Distance-Adjusted Matching Data (Lambda = 350km): [Code](src/analysis_8_mediation_matchedL350_v5.R)|[Output](src/analysis_8_mediation_matchedL350_v5.md) 
 
-    4. Mediation Analysis with Feeling Towards Korea: [Code](src/analysis_3_mediationKOR_v4.R)|[Output](src/analysis_3_mediationKOR_v4.md) 
+* Analysis (SIFCCT, Unmatched Online & Mail-In Combined)
 
-    5. Mediation Analysis with Feeling Towards China: [Code](src/analysis_3b_mediationCHN_v4.R)|[Output](src/analysis_3b_mediationCHN_v4.md)
+    1. Main Analysis: [Code (Main)](src/analysis_1_original_mail_v5.R)|[Output (Main)](src/analysis_1_original_mail_v5.md); [Code (Movers)](src/analysis_1x_original_mail_v5.R)|[Output (Movers)](src/analysis_1x_original_mail_v5.md)
 
-    6. Mediation Analysis with Ideology: [Code](src/analysis_4_mediationIDE_v4.R)|[Output](src/analysis_4_mediationIDE_v4.md) 
- 
-    7. Mediation Analysis with LDP Feeling Thermometer: [Code](src/analysis_5_mediationLDP_v4.R)|[Output](src/analysis_5_mediationLDP_v4.md) 
 
-    8. Mediation Analysis with Right Party Support: [Code](src/analysis_6_mediationRPS_v4.R)|[Output](src/analysis_6_mediationRPS_v4.md) 
-    
-    9. Mediation Analysis with Left Party Support: [Code](src/analysis_7_mediationLPS_v4.R)|[Output](src/analysis_7_mediationLPS_v4.md) 
+* Visualization 
 
+    1. Main Descriptive Statistics: [Code](src/visualization_1_descriptive_v5.R)|[Output](src/visualization_1_descriptive_v5.md)
+
+    2. Matching: [Code](src/visualization_2_matching_v5.R)|[Output](src/visualization_2_matching_v5.md)
+
+    3. Analysis: [Code](src/visualization_3_analysis_v5.R)|[Output](src/visualization_3_analysis_v5.md)
 
 ### Project Structure
 
