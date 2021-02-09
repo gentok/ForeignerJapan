@@ -1,8 +1,10 @@
 # In Japan, University Education Does Not Increase  Support for Immigrant Integration
 
-[Working paper (2/8/2020)](paper/Kato2021inja_v5.0_020821.pdf)
+[Working paper (2/8/2020)](paper/Kato2021inja_v5.0_020821.pdf) 
 
 [Online Appendix (2/8/2020)](paper/Kato2021inja_v5.0_020821_appendix.pdf)
+
+[Working paper + Appendix (2/8/2020, Available from SSRN)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3607550)
 
 <!-- [Presentation Slides (9/12/2020)](paper/Kato2020caun_v4.1_slides_apsa_handout_091220.pdf) -->
 
